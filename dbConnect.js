@@ -8,6 +8,7 @@ exports.dbConnect = () => {
       console.log('Database Connection Success');
     })
     .catch((err) => {
+      // show error in console
       console.error('Database connection error:', err);
     });
 };
