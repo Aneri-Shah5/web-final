@@ -5,6 +5,7 @@ const { dbConnect } = require('./dbConnect');
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
 const commentRoutes = require('./routes/commentRoutes');
+const cartRoutes = require('./routes/cartRoutes');
 
 const app = express();
 
@@ -21,6 +22,9 @@ app.use('/api/products', productRoutes);
 
 // comment api routes
 app.use('/api/comments', commentRoutes);
+
+// cart api routes
+app.use('/api/carts', cartRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World Aneri Assignment 4!');
