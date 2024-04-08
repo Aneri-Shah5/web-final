@@ -4,6 +4,7 @@ require('dotenv').config();
 const { dbConnect } = require('./dbConnect');
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
+const commentRoutes = require('./routes/commentRoutes');
 
 const app = express();
 
@@ -17,6 +18,9 @@ app.use('/api/users', userRoutes);
 
 // product api routes
 app.use('/api/products', productRoutes);
+
+// comment api routes
+app.use('/api/comments', commentRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World Aneri Assignment 4!');
