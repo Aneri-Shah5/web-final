@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 const { dbConnect } = require('./dbConnect');
 const userRoutes = require('./routes/userRoutes');
+const productRoutes = require('./routes/productRoutes');
 
 const app = express();
 
@@ -11,8 +12,11 @@ dbConnect();
 
 app.use(bodyParser.json());
 
-// user routes
+// user api routes
 app.use('/api/users', userRoutes);
+
+// product api routes
+app.use('/api/products', productRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World Aneri Assignment 4!');

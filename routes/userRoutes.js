@@ -1,6 +1,6 @@
 // Import required modules
 const express = require('express');
-const userController = require('../controllers/userControllers');
+const userController = require('../controllers/userController');
 
 // Create the router instance
 const router = express.Router();
