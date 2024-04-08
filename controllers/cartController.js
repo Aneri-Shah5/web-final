@@ -13,6 +13,16 @@ exports.createCart = async (req, res) => {
   }
 };
 
+// Retrieve all carts
+exports.getCarts = async (req, res) => {
+  try {
+    const carts = await CartModel.find();
+    res.status(200).json(carts);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // Retrieve a cart by ID
 exports.getCartById = async (req, res) => {
   try {

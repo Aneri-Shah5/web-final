@@ -8,6 +8,9 @@ router.post('/', cartController.createCart);
 // Retrieve a cart by ID
 router.get('/:cartId', cartController.getCartById);
 
+// Retrieve all carts
+router.get('/', cartController.getCarts);
+
 // Update a cart by ID
 router.put('/:cartId', cartController.updateCartById);
 
