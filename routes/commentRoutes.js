@@ -9,6 +9,9 @@ router.get('/', commentController.getAllComments);
 // POST /comments - Create a new comment
 router.post('/', commentController.createComment);
 
+// GET /comments/:id - Get comment by Id
+router.get('/:id', commentController.getCommentById);
+
 // PUT /comments/:id - Update an existing comment
 router.put('/:id', commentController.updateComment);
 

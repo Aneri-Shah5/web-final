@@ -1,5 +1,18 @@
 const CommentModel = require('../models/commentModel');
 
+// Get comment by Id
+const getCommentById = async (req, res) => {
+  try {
+    const comment = await CommentModel.findById(req.params.id);
+    if (!comment) {
+      return res.status(404).json({ error: 'Comment not found' });
+    }
+    res.json(comment);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // Get all comments
 async function getAllComments(req, res) {
   try {
@@ -50,6 +63,7 @@ async function deleteComment(req, res) {
 }
 
 module.exports = {
+  getCommentById,
   getAllComments,
   createComment,
   updateComment,
