@@ -1,0 +1,41 @@
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import { addItem } from '../reducers/cartReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+export default function ProductCard({ product }) {
+  const cart = useSelector((store) => store?.cart?.cart);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleAddToCart = () => {
+    if (isProductInCart) {
+      navigate('/cart');
+    } else {
+      dispatch(addItem({ product, quantity: 1 }));
+    }
+  };
+
+  const isProductInCart = useMemo(() => {
+    return cart?.some((cartItem) => cartItem?.product?._id === product?._id);
+  }, [product, cart]);
+
+  return (
+    <Card className="my-2">
+      <Card.Img
+        variant="top"
+        src={`http://localhost:4040/images/${product?.image}`}
+      />
+      <Card.Body>
+        <Card.Title>{product?.title}</Card.Title>
+        <div className="d-flex justify-content-between align-items-center">
+          <Card.Text className="m-0">${product?.price}</Card.Text>
+          <Button variant="warning btn-sm" onClick={handleAddToCart}>
+            {isProductInCart ? 'Go' : 'Add'} to Cart
+          </Button>
+        </div>
+      </Card.Body>
+    </Card>
+  );
+}

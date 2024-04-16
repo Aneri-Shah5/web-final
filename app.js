@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 require('dotenv').config();
 const { dbConnect } = require('./dbConnect');
 const userRoutes = require('./routes/userRoutes');
@@ -12,6 +13,10 @@ const app = express();
 
 // Connect to mongodb database
 dbConnect();
+
+app.use(cors());
+
+app.use(express.static('public'));
 
 app.use(bodyParser.json());
 

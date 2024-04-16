@@ -6,12 +6,21 @@ const orderSchema = new mongoose.Schema({
     {
       product: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Product',
         required: true,
       },
       quantity: { type: Number, required: true },
     },
   ],
+  totalPrice: { type: Number, required: true },
+  name: { type: String, required: true },
+  addressDetails: { type: String, required: true },
+  city: { type: String, required: true },
+  pincode: { type: String, required: true },
+  country: { type: String, required: true },
+  creditCardNumber: { type: String, required: true },
+  expiry: { type: String, required: true },
+  cvv: { type: String, required: true },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',

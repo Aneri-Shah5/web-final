@@ -26,8 +26,7 @@ const getAllOrders = async (req, res) => {
 // Create a new order
 const createOrder = async (req, res) => {
   try {
-    const { orderItems, user, date } = req.body;
-    const newOrder = await OrderModel.create({ orderItems, user, date });
+    const newOrder = await OrderModel.create(req.body);
     res.status(201).json(newOrder);
   } catch (error) {
     res.status(400).json({ error: error.message });
