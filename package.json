@@ -1,7 +1,7 @@
 {
-  "name": "aneri-assignment4",
+  "name": "aneri-web-final",
   "version": "1.0.0",
-  "description": "aneri-assignment4",
+  "description": "aneri-final",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
