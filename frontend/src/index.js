@@ -17,6 +17,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Orders from './pages/Orders';
 import './index.css';
+import CartCheck from './components/CartCheck';
 
 const persistConfig = {
   key: 'root',
@@ -65,6 +66,7 @@ root.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         {/* <App /> */}
+        <CartCheck />
         <RouterProvider router={router} />
       </PersistGate>
     </Provider>

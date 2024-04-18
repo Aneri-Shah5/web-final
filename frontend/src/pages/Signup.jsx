@@ -27,11 +27,10 @@ const Signup = () => {
     axios
       .post('http://localhost:4040/api/users/signup', user)
       .then((response) => {
-        console.log(response.data); // Handle the successful response
         navigate('/login');
       })
       .catch((error) => {
-        console.error(error); // Handle the error
+        console.error(error);
         alert(`Error, ${error?.response?.data?.message || error?.message}`);
       });
   };

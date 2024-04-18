@@ -1,24 +1,32 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { addItem } from '../reducers/cartReducer';
+import { updateCartItems, updateCartServer } from '../reducers/cartReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function ProductCard({ product }) {
-  const cart = useSelector((store) => store?.cart?.cart);
+  const { cart, auth } = useSelector((store) => store);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const handleAddToCart = () => {
-    if (isProductInCart) {
+    if (!auth?.authenticated) {
+      navigate('/login');
+    } else if (isProductInCart) {
       navigate('/cart');
     } else {
-      dispatch(addItem({ product, quantity: 1 }));
+      const newCartItems = [...cart?.cart, { product, quantity: 1 }];
+      dispatch(updateCartItems(newCartItems));
+      // debugger;
+      updateCartServer(newCartItems, auth?.user?._id);
     }
   };
 
   const isProductInCart = useMemo(() => {
-    return cart?.some((cartItem) => cartItem?.product?._id === product?._id);
+    return cart?.cart?.some(
+      (cartItem) => cartItem?.product?._id === product?._id
+    );
   }, [product, cart]);
 
   return (

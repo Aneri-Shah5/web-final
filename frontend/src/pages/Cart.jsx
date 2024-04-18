@@ -1,38 +1,54 @@
 import React, { useMemo } from 'react';
 import Layout from '../components/Layout';
-import { updateItem, removeItem } from '../reducers/cartReducer';
+import { updateCartItems, updateCartServer } from '../reducers/cartReducer';
 import { Button, Card, Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 export default function Cart() {
   const dispatch = useDispatch();
-  const cart = useSelector((store) => store?.cart?.cart);
+  const { cart, auth } = useSelector((store) => store);
 
   const total = useMemo(() => {
     let totalPrice = 0;
-    cart?.forEach((cartItem) => {
+    cart?.cart?.forEach((cartItem) => {
       totalPrice += cartItem?.product?.price * cartItem?.quantity;
     });
     return totalPrice;
-  }, [cart]);
+  }, [cart?.cart]);
+
+  const onRemove = (productId) => {
+    let newCartItems = cart?.cart?.filter(
+      (item) => item?.product?._id !== productId
+    );
+    dispatch(updateCartItems(newCartItems));
+    updateCartServer(newCartItems, auth?.user?._id);
+  };
+
+  const onUpdate = (updatedCartItem) => {
+    let newCartItems = cart?.cart?.map((item) =>
+      item?.product?._id === updatedCartItem?.product?._id
+        ? { ...item, quantity: updatedCartItem?.quantity }
+        : item
+    );
+    dispatch(updateCartItems(newCartItems));
+    updateCartServer(newCartItems, auth?.user?._id);
+  };
 
   return (
-    <Layout>
+    <Layout authRequired={true}>
       <h1>Cart</h1>
-      {cart?.map((cartItem) => (
+      {cart?.cart?.map((cartItem) => (
         <CartItem
           cartItem={cartItem}
-          onRemove={() => dispatch(removeItem(cartItem?.product?._id))}
-          onUpdate={(updatedCartItem) => {
-            dispatch(updateItem(updatedCartItem));
-          }}
+          onRemove={() => onRemove(cartItem?.product?._id)}
+          onUpdate={(updatedCartItem) => onUpdate(updatedCartItem)}
         />
       ))}
       <Card className="mt-2">
         <Card.Body>
           <div className=" d-flex align-items-center justify-content-between">
-            <h6 className="m-0">Total Price: ${total}</h6>
+            <h6 className="m-0">Total Price: ${total.toFixed(2)}</h6>
             <Button className="btn-warning">
               <Link to="/checkout" className="text-dark">
                 Checkout

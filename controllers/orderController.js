@@ -1,3 +1,4 @@
+const cartModel = require('../models/cartModel');
 const OrderModel = require('../models/orderModel');
 
 // Get order by Id
@@ -27,6 +28,7 @@ const getAllOrders = async (req, res) => {
 const createOrder = async (req, res) => {
   try {
     const newOrder = await OrderModel.create(req.body);
+    cartModel.deleteMany({ user: req?.body?.user });
     res.status(201).json(newOrder);
   } catch (error) {
     res.status(400).json({ error: error.message });

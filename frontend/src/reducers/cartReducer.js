@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const initialState = {
   cart: [],
@@ -28,9 +29,24 @@ const cartSlice = createSlice({
         item.quantity = quantity;
       }
     },
+    updateCartItems(state, action) {
+      state.cart = action.payload;
+    },
   },
 });
 
-export const { addItem, removeItem, updateItem, clearCart } = cartSlice.actions;
+export const { addItem, removeItem, updateItem, clearCart, updateCartItems } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;
+
+export const updateCartServer = async (cartItems, userId) => {
+  try {
+    await axios.put(`http://localhost:4040/api/carts/user-cart`, {
+      user: userId,
+      cartItems,
+    });
+  } catch (error) {
+    alert(`Error: ${error?.response?.data?.error || error?.message}`);
+  }
+};

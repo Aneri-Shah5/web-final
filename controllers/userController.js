@@ -1,4 +1,5 @@
 // Import required modules
+const CartModel = require('../models/cartModel');
 const UserModel = require('../models/userModel');
 
 // Create a new user
@@ -89,6 +90,12 @@ exports.signup = async (req, res) => {
 
     await user.save();
 
+    await CartModel.findOneAndUpdate(
+      { user: user?._id },
+      { user: user?._id, cartItems: [] },
+      { upsert: true }
+    );
+
     res.status(201).json({ message: 'Signup successful' });
   } catch (error) {
     console.error(error);
@@ -102,6 +109,7 @@ exports.login = async (req, res) => {
 
     // Check if the user exists
     const user = await UserModel.findOne({ email });
+
     if (!user) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }

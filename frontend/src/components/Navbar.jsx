@@ -4,6 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import NavbarComponent from 'react-bootstrap/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Cart3 } from 'react-bootstrap-icons';
 import { logout } from '../reducers/authReducer';
 
 function Navbar() {
@@ -50,7 +51,7 @@ function Navbar() {
             <Nav.Link>
               <Link to="/cart" className="text-dark">
                 <div className="d-flex align-items-center">
-                  Cart
+                  <Cart3 size={20} />
                   {cart?.cart?.length > 0 && (
                     <Badge pill bg="primary">
                       {cart?.cart?.length}

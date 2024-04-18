@@ -26,9 +26,7 @@ const Login = () => {
     axios
       .post('http://localhost:4040/api/users/login', user)
       .then(({ data }) => {
-        console.log(data?.user); // Handle the successful response
         disptach(loginAction(data?.user));
-        debugger;
       })
       .catch((error) => {
         console.error(error); // Handle the error

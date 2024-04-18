@@ -20,14 +20,14 @@ export default function Checkout() {
   }, [cart]);
 
   const [formData, setFormData] = useState({
-    name: 'Aneri',
-    addressDetails: 'Kitchener',
-    city: 'Kitchener',
-    pincode: 'N2SK23',
-    country: 'Canada',
-    creditCardNumber: '1234567890',
-    expiry: '1233',
-    cvv: '123',
+    name: '',
+    addressDetails: '',
+    city: '',
+    pincode: '',
+    country: '',
+    creditCardNumber: '',
+    expiry: '',
+    cvv: '',
   });
 
   const handleChange = (e) => {
@@ -50,7 +50,6 @@ export default function Checkout() {
     axios
       .post('http://localhost:4040/api/orders', payload)
       .then(({ data }) => {
-        console.log(data);
         alert('Order Placed successfully');
         dispatch(clearCart());
         navigate('/');
@@ -166,7 +165,7 @@ export default function Checkout() {
               />
             </Form.Group>
             <div className="mt-4 d-flex align-items-center justify-content-between">
-              <h6 className="m-0">Total Price: ${totalPrice}</h6>
+              <h6 className="m-0">Total Price: ${totalPrice.toFixed(2)}</h6>
               <Button className="btn-warning" type="submit">
                 Place Order
               </Button>

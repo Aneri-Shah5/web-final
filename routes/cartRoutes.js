@@ -12,7 +12,7 @@ router.get('/:cartId', cartController.getCartById);
 router.get('/', cartController.getCarts);
 
 // Update a cart by ID
-router.put('/:cartId', cartController.updateCartById);
+router.put('/user-cart', cartController.updateCartById);
 
 // Delete a cart by ID
 router.delete('/:cartId', cartController.deleteCartById);
