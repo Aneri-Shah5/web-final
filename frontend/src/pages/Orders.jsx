@@ -3,13 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import Layout from '../components/Layout';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
+  const { auth } = useSelector((store) => store);
 
   useEffect(() => {
     axios
-      .get('http://localhost:4040/api/orders')
+      .get(`http://localhost:4040/api/orders?userId=${auth?.user?._id}`)
       .then(({ data }) => setOrders(data))
       .catch((error) => console.log(error));
   }, []);

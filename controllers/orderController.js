@@ -17,7 +17,11 @@ const getOrderById = async (req, res) => {
 // Get all orders
 const getAllOrders = async (req, res) => {
   try {
-    const orders = await OrderModel.find();
+    const filter = {};
+    if (req?.query?.userId) {
+      filter.user = req?.query?.userId;
+    }
+    const orders = await OrderModel.find(filter);
     res.json(orders);
   } catch (error) {
     res.status(500).json({ error: error.message });

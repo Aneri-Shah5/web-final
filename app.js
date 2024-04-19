@@ -36,11 +36,11 @@ app.use('/api/carts', cartRoutes);
 app.use('/api/orders', orderRoutes);
 
 app.get('/', (req, res) => {
-  res.send('Hello World Aneri Assignment 4!');
+  res.send('Hello World Aneri!');
 });
 
 const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
-  console.log(`Assignment 4 running on port http://localhost:${PORT}/`);
+  console.log(`Web Final running on port http://localhost:${PORT}/`);
 });
